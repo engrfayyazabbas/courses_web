@@ -49,7 +49,9 @@ let pins        = new Set();
     document.getElementById('loading-msg').remove();
 
     const sidebarClosed = localStorage.getItem(SIDEBAR_KEY) === 'closed';
-    if (sidebarClosed) document.getElementById('layout').classList.add('sidebar-hidden');
+    if (sidebarClosed || window.innerWidth <= 768) {
+      document.getElementById('layout').classList.add('sidebar-hidden');
+    }
 
     const lastPath = localStorage.getItem(LAST_PATH_KEY);
     const lastNode = lastPath ? nodeMap[lastPath] : null;
@@ -359,6 +361,9 @@ function buildBreadcrumb(node) {
 function showNode(node) {
   currentNode = node;
   localStorage.setItem(LAST_PATH_KEY, node.path);
+  if (window.innerWidth <= 768) {
+    document.getElementById('layout').classList.add('sidebar-hidden');
+  }
   const view   = document.getElementById('normal-view');
   const r      = countNode(node);
   const pct    = r.total ? Math.round(r.done / r.total * 100) : 0;
