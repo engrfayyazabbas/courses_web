@@ -1,100 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>📚 Course Library</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
+
 <body>
 
-<!-- ── HEADER ─────────────────────────────────────────────────────────── -->
-<header>
-  <!-- Sidebar toggle button -->
-  <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar" onclick="toggleSidebar()">
-    <span></span><span></span><span></span>
-  </button>
+  <!-- ── HEADER ─────────────────────────────────────────────────────────── -->
+  <header>
+    <!-- Sidebar toggle button -->
+    <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar" onclick="toggleSidebar()">
+      <span></span><span></span><span></span>
+    </button>
 
-  <div class="logo">📚 Course<span>Lib</span></div>
+    <div class="logo">📚 Course<span>Lib</span></div>
 
-  <div class="search-wrap">
-    <span class="si">🔍</span>
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search files and folders…"
-      oninput="handleSearch(this.value)"
-    />
-  </div>
-
-  <div class="overall-progress" id="overallProgress">
-    <div class="op-label">
-      <span>Overall Progress</span>
-      <span id="overallPct">0%</span>
+    <div class="search-wrap">
+      <span class="si">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search files and folders…" oninput="handleSearch(this.value)" />
     </div>
-    <div class="op-track">
-      <div class="op-fill" id="overallFill" style="width:0%"></div>
-    </div>
-  </div>
 
-  <div class="hstats">
-    <span id="scanDate" class="scan-date"></span>
-    <span>📁 <b id="totalFolders">—</b> folders</span>
-    <span>📄 <b id="completedCount">0</b>/<b id="totalFiles">—</b> done</span>
-  </div>
-</header>
-
-<!-- ── RESUME BANNER ──────────────────────────────────────────────────── -->
-<div class="resume-banner" id="resumeBanner" style="display:none">
-  <span class="resume-icon">📍</span>
-  <span class="resume-text">Resume where you left off: <b id="resumeFolderName"></b></span>
-  <button class="resume-btn" id="resumeBtn" onclick="resumeLastFolder()">▶ Resume</button>
-  <button class="resume-dismiss" onclick="dismissResume()" title="Dismiss">✕</button>
-</div>
-
-<!-- ── LAYOUT ─────────────────────────────────────────────────────────── -->
-<div class="layout" id="layout">
-  <nav class="sidebar" id="sidebar">
-    <!-- built by app.js -->
-  </nav>
-
-  <main class="main" id="main">
-    <!-- Search results (hidden by default) -->
-    <div id="search-view" style="display:none">
-      <div class="section-title">
-        Search Results
-        <span class="badge" id="sr-count">0 files</span>
+    <div class="overall-progress" id="overallProgress">
+      <div class="op-label">
+        <span>Overall Progress</span>
+        <span id="overallPct">0%</span>
       </div>
-      <table class="files-table" id="search-table">
-        <thead>
-          <tr>
-            <th style="width:55%">File</th>
-            <th>Type</th>
-            <th>Size</th>
-            <th>Progress</th>
-          </tr>
-        </thead>
-        <tbody id="search-tbody"></tbody>
-      </table>
-      <div class="empty" id="search-empty" style="display:none">
-        <div class="ei">🔍</div>
-        <p>No files match your search.</p>
+      <div class="op-track">
+        <div class="op-fill" id="overallFill" style="width:0%"></div>
       </div>
     </div>
 
-    <!-- Normal folder view -->
-    <div id="normal-view">
-      <div class="empty" id="loading-msg">
-        <div class="ei">⏳</div>
-        <p>Loading course data…</p>
-      </div>
+    <div class="hstats">
+      <span id="scanDate" class="scan-date"></span>
+      <span>📁 <b id="totalFolders">—</b> folders</span>
+      <span>📄 <b id="completedCount">0</b>/<b id="totalFiles">—</b> done</span>
     </div>
-  </main>
-</div>
+  </header>
 
-<!-- ── TOAST ───────────────────────────────────────────────────────────── -->
-<div class="toast" id="toast"></div>
+  <!-- ── RESUME BANNER ──────────────────────────────────────────────────── -->
+  <div class="resume-banner" id="resumeBanner" style="display:none">
+    <span class="resume-icon">📍</span>
+    <span class="resume-text">Resume where you left off: <b id="resumeFolderName"></b></span>
+    <button class="resume-btn" id="resumeBtn" onclick="resumeLastFolder()">▶ Resume</button>
+    <button class="resume-dismiss" onclick="dismissResume()" title="Dismiss">✕</button>
+  </div>
 
-<script src="app.js"></script>
+  <!-- ── LAYOUT ─────────────────────────────────────────────────────────── -->
+  <div class="layout" id="layout">
+    <nav class="sidebar" id="sidebar">
+      <!-- built by app.js -->
+    </nav>
+
+    <main class="main" id="main">
+      <!-- Search results (hidden by default) -->
+      <div id="search-view" style="display:none">
+        <div class="section-title">
+          Search Results
+          <span class="badge" id="sr-count">0 files</span>
+        </div>
+        <table class="files-table" id="search-table">
+          <thead>
+            <tr>
+              <th style="width:55%">File</th>
+              <th>Type</th>
+              <th>Size</th>
+              <th>Progress</th>
+            </tr>
+          </thead>
+          <tbody id="search-tbody"></tbody>
+        </table>
+        <div class="empty" id="search-empty" style="display:none">
+          <div class="ei">🔍</div>
+          <p>No files match your search.</p>
+        </div>
+      </div>
+
+      <!-- Normal folder view -->
+      <div id="normal-view">
+        <div class="empty" id="loading-msg">
+          <div class="ei">⏳</div>
+          <p>Loading course data…</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ── TOAST ───────────────────────────────────────────────────────────── -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
 </body>
+
 </html>
